@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e7edf9ba.css",
+    "main.js": "/static/js/main.5fc15861.js",
+    "static/media/funnyerror.jpg": "/static/media/funnyerror.591dba4780542c53b3d0.jpg",
+    "static/media/hemitubeLogoForC.jpeg": "/static/media/hemitubeLogoForC.391106016dfb6058d707.jpeg",
+    "index.html": "/index.html",
+    "main.e7edf9ba.css.map": "/static/css/main.e7edf9ba.css.map",
+    "main.5fc15861.js.map": "/static/js/main.5fc15861.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e7edf9ba.css",
+    "static/js/main.5fc15861.js"
+  ]
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/white"/>
+            <size android:height="3dp"
+                android:width="3dp"/>
+            <stroke android:width="1dp"
+                android:color="@color/black"/>
+
+        </shape>
+    </item>
+
+    <item
+        android:drawable="@drawable/baseline_sunny"
+        android:top="2dp"
+        android:bottom="2dp"
+        android:right="2dp"
+        android:left="2dp"/>
+
+
+
+
+</layer-list>

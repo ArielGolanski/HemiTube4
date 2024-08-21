@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">YouTube Project</string>
+    <string name="Bar">FooBar</string>
+    <string name="login_etUsername">Username</string>
+    <string name="login_etPassword">Password</string>
+    <string name="login_btnLogin">Login</string>
+    <string name="hemitube">HemiTube</string>
+    <string name="btnHome">Home</string>
+    <string name="btnShorts">Shorts</string>
+    <string name="btnSubscriptions">Subscriptions</string>
+    <string name="btnYou">You</string>
+    <string name="btnJoin">Join Now</string>
+    <string name="btnSignIn">Sign In</string>
+    <string name="TxtRegistrationForm">Registration Form</string>
+    <string name="txtFirstName">First Name</string>
+    <string name="txtLastName">Last Name</string>
+    <string name="txtEmail">E-mail</string>
+    <string name="btnLogUp">Log Up</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="nickname">Nickname</string>
+    <string name="select_photo">Select Photo</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="welocme">Welocme please Sign In</string>
+    <string name="my_videos">My Videos:</string>
+    <string name="only_signed_users_can_upload_videos">Only signed users can upload videos!</string>
+    <string name="upload">Upload</string>
+    <string name="title">Title</string>
+    <string name="content">Content</string>
+    <string name="back">Back</string>
+    <string name="edit">edit</string>
+    <string name="delete">delete</string>
+    <string name="save">save</string>
+    <string name="edit_the_video_name">Edit the Video Name</string>
+    <string name="edit_the_video_descreption">Edit the Video Descreption</string>
+</resources>

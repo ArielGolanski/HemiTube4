@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.YouTubeProject" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+
+    <style name="ScreenBackground"><item name="android:background">@color/white</item></style>
+    <style name="VideoBackground"><item name="android:background">@color/white</item></style>
+    <style name="TextColor"><item name="android:textColor">@color/black</item></style>
+    <style name="LogoChange"><item name="android:src">@drawable/ic_logo</item></style>
+
+
+    <style name="Theme.YouTubeProject" parent="Base.Theme.YouTubeProject" />
+</resources>

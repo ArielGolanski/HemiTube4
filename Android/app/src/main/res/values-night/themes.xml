@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.YouTubeProject" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    </style>
+
+    <style name="ScreenBackground"><item name="android:background">@color/dark_gray</item></style>
+    <style name="VideoBackground"><item name="android:background">@color/dark_gray</item></style>
+    <style name="TextColor"><item name="android:textColor">@color/white</item></style>
+    <style name="LogoChange"><item name="android:src">@drawable/ic_dark_logo</item></style>
+
+
+
+</resources>

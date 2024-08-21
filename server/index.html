@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test</title>
+    <script>
+        let token = ''; // Global variable to store the token
+
+        async function signUp() {
+            const username = document.getElementById('signUpUsername').value;
+            const password = document.getElementById('signUpPassword').value;
+            const nickName = document.getElementById('signUpNickName').value;
+            const profilePic = document.getElementById('signUpProfilePic').value || 'default_profile_pic_url';
+
+            try {
+                const response = await fetch('/api/users', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password, nickName, profilePic })
+                });
+                const data = await response.json();
+                console.log('Sign Up:', data);
+                document.getElementById('signUpResponse').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error signing up:', error);
+            }
+        }
+
+
+
+
+
+
+        async function login() {
+            const password = document.getElementById('password-login').value;
+            const username = document.getElementById('username-login').value;
+
+            try {
+                const response = await fetch('/api/tokens/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await response.json();
+                token = data.token; // Store the token
+                document.getElementById('loginResponse').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error logging in:', error);
+            }
+        }
+
+        async function fetchVideos() {
+            const userId = document.getElementById('userId').value;
+            try {
+                const response = await fetch(`/api/users/${userId}/videos`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Include the token in the headers
+                    }
+                });
+                const data = await response.json();
+                document.getElementById('videos').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error fetching videos:', error);
+            }
+        }
+
+        async function addVideo() {
+            const publisher = document.getElementById('publisher').value.split(',').map(id => id.trim());
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const comments = document.getElementById('comments').value.split(',').map(id => id.trim());
+            const file = {
+                name: document.getElementById('fileName').value,
+                data: document.getElementById('fileData').value
+            };
+            try {
+                const response = await fetch(`/api/users/${publisher}/videos`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Include the token in the headers
+                    },
+                    body: JSON.stringify({ publisher, title, description, comments, file })
+                });
+                console.log("video added successfully")
+            } catch (error) {
+                console.error('Error adding video:', error);
+            }
+        }
+
+        async function fetchVideoById() {
+            const userId = document.getElementById('userId').value;
+            const videoId = document.getElementById('videoId').value;
+            try {
+                const response = await fetch(`/api/users/${userId}/videos/${videoId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Include the token in the headers
+                    }
+                });
+                const data = await response.json();
+                console.log(data);
+                document.getElementById('video').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error fetching video:', error);
+            }
+        }
+
+        async function updateVideo() {
+            const userId = document.getElementById('updatePublisher').value;
+            const videoId = document.getElementById('updateVideoId').value;
+            const title = document.getElementById('updateTitle').value;
+            try {
+                const response = await fetch(`/api/users/${userId}/videos/${videoId}`, {
+                    method: 'PUT',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Include the token in the headers
+                    },
+                    body: JSON.stringify({ title })
+                });
+                console.log("video title updated successfully");
+            } catch (error) {
+                console.error('Error updating video:', error);
+            }
+        }
+
+        async function deleteVideo() {
+            const userId = document.getElementById('deletePublisher').value;
+            const videoId = document.getElementById('deleteVideoId').value;
+            try {
+                const response = await fetch(`/api/users/${userId}/videos/${videoId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Include the token in the headers
+                    }
+                });
+                console.log("video deleting done successfully!");
+            } catch (error) {
+                console.error('Error deleting video:', error);
+            }
+        }
+
+        async function addCommentToVideo() {
+            const userId = document.getElementById('userId').value;
+            const videoId = document.getElementById('commentVideoId').value;
+            const content = document.getElementById('commentContent').value;
+            try {
+                const response = await fetch(`/api/users/${userId}/videos/${videoId}/comments`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Include the token in the headers
+                    },
+                    body: JSON.stringify({ content })
+                });
+                const data = await response.json();
+                console.log(data);
+                fetchVideos(); // Refresh the videos list
+            } catch (error) {
+                console.error('Error adding comment to video:', error);
+            }
+        }
+
+        async function deleteUser() {
+            const userId = document.getElementById('deleteUserId').value;
+            try {
+                const response = await fetch(`/api/users/${userId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Include the token in the headers
+                    }
+                });
+                console.log("User deleted successfully!");
+            } catch (error) {
+                console.error('Error deleting user:', error);
+            }
+        }
+
+        async function deleteComment() {
+            const commentId = document.getElementById('deleteCommentId').value;
+            try {
+                const response = await fetch(`/api/comments/${commentId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Include the token in the headers
+                    }
+                });
+                console.log("Comment deleted successfully!");
+            } catch (error) {
+                console.error('Error deleting comment:', error);
+            }
+        }
+
+        async function fetchCommentsByVideoId() {
+            const userId = document.getElementById('userId').value;
+            const videoId = document.getElementById('fetchCommentVideoId').value;
+            try {
+                const response = await fetch(`/api/users/${userId}/videos/${videoId}/comments`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Include the token in the headers
+                    }
+                });
+                const data = await response.json();
+                console.log(data);
+                document.getElementById('videoComments').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                console.error('Error fetching comments for video:', error);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>API Test</h1>
+
+    <h2>User Operations</h2>
+    <h3>Login</h3>
+    <input type="text" id="username-login" placeholder="Username">
+    <input type="password" id="password-login" placeholder="Password">
+    <button onclick="login()">Log In</button>
+    <pre id="loginResponse"></pre>
+
+    <h2>Video Operations</h2>
+    <input type="text" id="userId" placeholder="User ID">
+    <button onclick="fetchVideos()">Fetch Videos</button>
+    <pre id="videos"></pre>
+
+    <h3>Add Video</h3>
+    <input type="text" id="publisher" placeholder="Publisher IDs (comma-separated)">
+    <input type="text" id="title" placeholder="Title">
+    <input type="text" id="description" placeholder="Description">
+    <input type="text" id="comments" placeholder="Comment IDs (comma-separated)">
+    <div id="fileContainer">
+        <input type="text" id="fileName" placeholder="File Name">
+        <input type="text" id="fileData" placeholder="File Data (base64)">
+    </div>
+    <button onclick="addVideo()">Add Video</button>
+
+    <h3>Get Video by ID</h3>
+    <input type="text" id="userId" placeholder="User ID">
+    <input type="text" id="videoId" placeholder="Video ID">
+    <button onclick="fetchVideoById()">Fetch Video</button>
+    <pre id="video"></pre>
+
+    <h3>Update Video</h3>
+    <input type="text" id="updatePublisher" placeholder="Publisher IDs (comma-separated)">
+    <input type="text" id="updateVideoId" placeholder="Video ID">
+    <input type="text" id="updateTitle" placeholder="New Title">
+    <button onclick="updateVideo()">Update Video</button>
+
+    <h3>Delete Video</h3>
+    <input type="text" id="deletePublisher" placeholder="Publisher IDs (comma-separated)">
+    <input type="text" id="deleteVideoId" placeholder="Video ID">
+    <button onclick="deleteVideo()">Delete Video</button>
+
+    <h2>Comment Operations</h2>
+    <h3>Add Comment to Video</h3>
+    <input type="text" id="userId" placeholder="User ID">
+    <input type="text" id="commentVideoId" placeholder="Video ID">
+    <input type="text" id="commentContent" placeholder="Comment Content">
+    <button onclick="addCommentToVideo()">Add Comment</button>
+
+    <h3>Delete Comment</h3>
+    <input type="text" id="deleteCommentId" placeholder="Comment ID">
+    <button onclick="deleteComment()">Delete Comment</button>
+
+    <h3>Get Comments by Video ID</h3>
+    <input type="text" id="userId" placeholder="User ID">
+    <input type="text" id="fetchCommentVideoId" placeholder="Video ID">
+    <button onclick="fetchCommentsByVideoId()">Fetch Comments</button>
+    <pre id="videoComments"></pre>
+
+    <h3>Delete User</h3>
+    <input type="text" id="deleteUserId" placeholder="User ID">
+    <button onclick="deleteUser()">Delete User</button>
+
+    <h2>User Operations</h2>
+    <h3>Sign Up</h3>
+    <input type="text" id="signUpUsername" placeholder="Username">
+    <input type="password" id="signUpPassword" placeholder="Password">
+    <input type="text" id="signUpNickName" placeholder="NickName">
+    <input type="text" id="signUpProfilePic" placeholder="Profile Picture URL (optional)">
+    <button onclick="signUp()">Sign Up</button>
+    <pre id="signUpResponse"></pre>
+</body>
+</html>
