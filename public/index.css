@@ -1,0 +1,8 @@
+.list-group-item{
+    border: 0;
+    background-color: transparent;
+}
+.list-group-item:hover{
+    background-color: lightgray;
+    cursor: pointer;
+}

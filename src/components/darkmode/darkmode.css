@@ -1,0 +1,57 @@
+/* App.css */
+
+/* General button styles */
+.dark-mode-toggle {
+    position: fixed;
+    /* Keeps the button in a fixed position on the screen */
+    top: 10px;
+    /* Adjust as needed for your layout */
+    right: 10px;
+    /* Adjust as needed for your layout */
+    padding: 10px 20px;
+    /* Space inside the button */
+    border: none;
+    /* Remove default border */
+    border-radius: 25px;
+    /* Rounded corners */
+    background-color: #4a4a4a;
+    /* Dark gray background */
+    color: #ffffff;
+    /* White text */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    /* Smooth transition */
+    font-size: 1rem;
+    /* Font size for the button text */
+    font-weight: bold;
+    /* Make the text bold */
+    z-index: 1000;
+    /* Ensure it stays on top */
+}
+
+/* Dark mode button specific styles */
+.dark-mode .dark-mode-toggle {
+    background-color: #222222;
+    /* Even darker background in dark mode */
+    color: #ffcc00;
+    /* Yellow text to contrast with dark background */
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
+    /* Soft yellow glow */
+}
+
+/* Hover effect */
+.dark-mode-toggle:hover {
+    background-color: #373737;
+    /* Slightly lighter on hover */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    /* White glow effect */
+}
+
+/* Focus effect for accessibility */
+.dark-mode-toggle:focus {
+    outline: none;
+    /* Remove default focus outline */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    /* White glow when focused */
+}
