@@ -1,38 +1,44 @@
-import React, { useState ,useEffect } from 'react';
-import { Link , useParams} from 'react-router-dom';
-import VideoItem from '../videoItem/VideoItem';
-import videoTable from '../videoItem/Videos.json';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';  // Import useParams to get the current video ID
 import './VideoViewVidResults.css';
 
 export const serverAddress = 'http://localhost:5001';
 
-function VideoViewVidResuls() {
-  const [recommendedVideos, setRecommendedVideos] = useState([]);
+function VideoViewVidResuls({ currentUser }) {
+  const [recommendedVideoList, setRecommendedVideoList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
-  const { id, pid } = useParams();  // Extract userId (id) and videoId (pid) from URL parameters
+  const { id } = useParams();  // Get the current video ID from the URL
 
-  // Fetch recommended videos from the API when the component is mounted
   useEffect(() => {
     const fetchRecommendedVideos = async () => {
       try {
-        const response = await fetch(`${serverAddress}/api/users/${id}/videos/${pid}/recommended`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch recommended videos');
+        const res = await fetch(`${serverAddress}/api/users/${localStorage.getItem('username')}/videos/${id}/recommended`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'authorization': 'Bearer ' + localStorage.getItem('JWT'),
+          },
+        });
+
+        if (res.status === 200) {
+          const data = await res.json();
+          setRecommendedVideoList(data);  // Set the fetched data
+        } else {
+          throw new Error('Error fetching recommended videos');
         }
-        const data = await response.json();
-        setRecommendedVideos(data);
-      } catch (err) {
-        setError(err.message);
+      } catch (error) {
+        setError(error.message);  // Set error message
       } finally {
-        setLoading(false);
+        setLoading(false);  // Stop the loading state
       }
     };
 
     fetchRecommendedVideos();
-  }, [id, pid]);
+  }, [id]);  // Fetch videos every time the video ID changes
 
+  // Handle loading and error states
   if (loading) {
     return <label>Loading recommended videos...</label>;
   }
@@ -41,11 +47,12 @@ function VideoViewVidResuls() {
     return <label>{error}</label>;
   }
 
-  if (recommendedVideos.length === 0) {
+  if (recommendedVideoList.length === 0) {
     return <label>No recommended videos available!</label>;
   }
 
-  const videoLinks = recommendedVideos.map((video, index) => (
+  // Generate video links for display
+  const videoLinks = recommendedVideoList.map((video, index) => (
     <Link to={`/video/${video._id}`} key={index} style={{ textDecoration: 'none', color: 'inherit' }}>
       <div className="video-item-res">
         <img className="video-thumbnail" src={`${serverAddress}/uploads/${video.thumbnail_name}`} alt={video.title} />
