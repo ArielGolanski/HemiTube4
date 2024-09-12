@@ -1,0 +1,12 @@
+/* src/components/search/Search.css */
+
+.search-bar input {
+    background-color: var(--search-bg-color);
+    color: var(--search-text-color);
+    border: 1px solid var(--search-bg-color);
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  

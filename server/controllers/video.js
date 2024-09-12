@@ -2,6 +2,7 @@
 const Video = require('../models/video.js');
 
 const videoService = require('../services/video');
+const tcpService = require('../services/tcpServices.js');
 const VidFile = require('../models/vidFile.js');
 const jwt = require('jsonwebtoken'); 
 
@@ -229,9 +230,45 @@ const deleteComment = async (req, res) => {
     }
 };
 
+///////////////////new for the tcp server////////////////
+const getRecommendedVideos = async (req, res) => {
+    try {
+        const { id: userId, pid: videoId } = req.params;  // Ensure the parameters are properly named
+
+        console.log('userId:', userId, 'videoId:', videoId);  // Add this log to check if they are undefined
+
+        if (!userId || !videoId) {
+            return res.status(400).json({ errors: ['Invalid userId or videoId'] });
+        }
+
+        // Fetch recommended video IDs from the TCP server
+        const recommendedVideoIds = await tcpService.getRecommendationsFromTCP(userId, videoId);
+
+        // Check for recommendations and handle accordingly
+        if (recommendedVideoIds.length === 0) {
+            console.log('No recommendations available, fetching top 20 videos.');
+            const topVideos = await videoService.getTopVids();
+            return res.status(200).json(topVideos);
+        }
+
+        // Get full video details from MongoDB
+        const recommendedVideos = await videoService.getVideosByIds(recommendedVideoIds);
+        return res.status(200).json(recommendedVideos);
+    } catch (error) {
+        console.error('Error fetching recommended videos:', error);
+        res.status(500).json({ errors: [error.message] });
+    }
+};
+
+
+
+
+
+
+
 
 
 
 module.exports = { createVideo, getVideos, getVideo, updateVideo, deleteVideo,  getTopVids,
     addCommentToVideo, isLoggedIn , getVideosByUsername, getAllCommentsByVideoId, deleteVideosByUsername, 
-    deleteComment, updateComment, getCommentFromVideo, addDefaultVideo};
+    deleteComment, updateComment, getCommentFromVideo, addDefaultVideo, getRecommendedVideos};

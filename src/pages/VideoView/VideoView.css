@@ -1,0 +1,152 @@
+/* VideoView.css */
+
+.video-view-container {
+    display: flex;
+    width: 100%;
+    height: 500px; /* Full viewport height */
+  }
+  
+  .video-list {
+    width: 100%; /* Left third of the screen */
+    overflow-y: auto; /* Scrollable if content overflows */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f8f9fa;
+  }
+  
+  .main-content {
+    width: 80%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .video-player {
+    width: 100% ;
+    height: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .video-details {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .comment-section {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .video-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .action-buttons button {
+    margin-right: 10px;
+  }
+  
+  .edit-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .share-container {
+    position: relative;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    background: #f9f9f9;
+  }
+  
+  .share-icons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s;
+  }
+  
+  .icon-wrapper:hover {
+    background-color: #e0e0e0;
+  }
+  
+  /* VideoView.css */
+
+.video-view-container {
+    display: flex;
+  }
+  
+  .video-list-container {
+    width: 27%;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .main-content {
+    width: 73%;
+    padding: 20px;
+  }
+  
+  .video-player {
+    margin-bottom: 20px;
+  }
+  
+  .video-details {
+    margin-bottom: 20px;
+  }
+  
+  .video-actions {
+    margin-bottom: 20px;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .edit-section {
+    margin-bottom: 20px;
+  }
+  
+  .comment-section {
+    margin-top: 20px;
+  }
+  
+  .comment-section textarea {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .logo-container4 {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    width: 60px; /* Adjust width to match height for perfect circle */
+    height: 60px; /* Adjust height to match width for perfect circle */
+    border-radius: 50%; /* Makes the container round */
+    overflow: hidden; /* Ensures the image does not overflow the container */
+    display: flex;
+    align-items: left;
+    justify-content: center;
+   
+  }
+  
+  .logo4 {
+
+    width: 100%;
+    height: auto;
+  }

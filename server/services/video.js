@@ -255,10 +255,25 @@ const deleteAllCommentsByUsername = async (username) => {
     }
 };
 
+//////////////////////////new for the tcp server////////////////////////////
+
+const getVideosByIds = async (videoIds) => {
+    try {
+        // Fetch videos by their IDs and populate the publisher details
+        return await Video.find({ _id: { $in: videoIds } }).populate('publisher');
+    } catch (error) {
+        console.error('Error fetching videos by IDs:', error);
+        throw new Error('Could not fetch videos by IDs');
+    }
+};
+
+
+
 
 
 
 module.exports = {
     createVideo, getVideos, getVideoById, updateVideo, deleteVideo, getTopVids, deleteAllCommentsByUsername,
-    addCommentToVideo, getVideosByUsername, getAllCommentsByVideoId, deleteVideosByUsername, deleteComment, updateComment, getCommentFromVideo
+    addCommentToVideo, getVideosByUsername, getAllCommentsByVideoId, deleteVideosByUsername, deleteComment,
+    updateComment, getCommentFromVideo, getVideosByIds
 };

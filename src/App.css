@@ -1,0 +1,94 @@
+.App {
+  text-align: center;
+}
+/* dark mode */
+
+/* src/App.css */
+
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+}
+
+body.dark-mode {
+  --background-color: #333333;
+  --text-color: #ffffff;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Ensure other styles are not overridden */
+.container-fluid {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* src/App.css */
+
+:root {
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --sidebar-bg-color: #f8f9fa; /* Light mode sidebar background */
+  --sidebar-text-color: #000000; /* Light mode sidebar text */
+  --content-bg-color: #ffffff; /* Light mode content background */
+  --content-text-color: #000000; /* Light mode content text */
+  --search-bg-color: #ffffff; /* Light mode search bar background */
+  --search-text-color: #000000; /* Light mode search bar text */
+}
+
+body.dark-mode {
+  --background-color: #110b0b38;
+  --text-color: #e9e2e261;
+  --sidebar-bg-color: #444444; /* Dark mode sidebar background */
+  --sidebar-text-color: #ada6a69c; /* Dark mode sidebar text */
+  --content-bg-color: #222222; /* Dark mode content background */
+  --content-text-color: #e9e2e261; /* Dark mode content text */
+  --search-bg-color: #313030; /* Dark mode search bar background */
+  --search-text-color: #e9e2e261; /* Dark mode search bar text */
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.container-fluid {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Sidebar */
+.sidebar-container {
+  background-color: var(--sidebar-bg-color);
+  color: var(--sidebar-text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Main content */
+.main-content {
+  background-color: var(--content-bg-color);
+  color: var(--content-text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Search bar */
+.search-bar input {
+  background-color: var(--search-bg-color);
+  color: var(--search-text-color);
+  border: 1px solid var(--search-bg-color);
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+/* Video item */
+.video-item-res {
+  background-color: var(--sidebar-bg-color); /* Use sidebar color for video items */
+  color: var(--text-color); /* Use general text color */
+  border: 1px solid var(--sidebar-bg-color);
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+
+
