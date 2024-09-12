@@ -2,6 +2,7 @@
 #include <thread>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <mutex>
 #include <cstring>
 #include <netinet/in.h>
@@ -10,8 +11,42 @@
 using namespace std;
 
 const int server_port = 5000;
-unordered_map<string, vector<string>> user_video_map;  // user_id is a string
-mutex mtx;
+
+// video ID's -> set of connected video ID's
+unordered_map<string, unordered_set<string>> video_connections;  
+
+// username -> List of videos watched
+unordered_map<string, vector<string>> user_video_map;
+
+// update connections between videos a user watches
+void update_video_connections(const string& user_id, const string& new_video_id) {
+    // get list of videos the user has already watched
+    vector<string>& user_videos = user_video_map[user_id];
+
+    // connect new video with all previously watched videos by same user
+    for (const string& watched_video : user_videos) {
+        // connect new_video_id to watched_video
+        video_connections[new_video_id].insert(watched_video);
+        video_connections[watched_video].insert(new_video_id);
+    }
+
+    // add new video to user's history
+    user_videos.push_back(new_video_id);
+}
+
+// generate recommendations based on the last watched video
+string get_recommendations(const string& video_id) {
+    // retrieve all videos directly connected to given video_id
+    if (video_connections.find(video_id) != video_connections.end()) {
+        string recommendations;
+        for (const string& connected_video : video_connections[video_id]) {
+            recommendations += connected_video + " ";
+        }
+        return recommendations.empty() ? "No recommendations available" : recommendations;
+    }
+    return "No recommendations available";
+}
+
 
 void handle_client(int client_sock) {
     cout << "Handling new client connection on socket: " << client_sock << endl;
@@ -33,23 +68,11 @@ void handle_client(int client_sock) {
             if (!user_id.empty() && !video_id.empty()) {
                 cout << "Parsed user_id: " << user_id << ", video_id: " << video_id << endl;
 
-                // Update user's video history
-                user_video_map[user_id].push_back(video_id);
-                cout << "Updated video history for user " << user_id << endl;
+                // Update user's video history and video connections
+                update_video_connections(user_id, video_id);
 
-                // Recommendation logic: Based on common videos watched by other users
-                string recommendations;
-                for (const auto& entry : user_video_map) {
-                    if (entry.first != user_id) {
-                        for (const string& watched_video : entry.second) {
-                            recommendations += " " + watched_video;
-                        }
-                    }
-                }
-
-                if (recommendations.empty()) {
-                    recommendations = "No recommendations available";
-                }
+                // Get recommendations for the current video
+                string recommendations = get_recommendations(video_id);
 
                 cout << "Generated recommendations: " << recommendations << endl;
 
@@ -73,7 +96,6 @@ void handle_client(int client_sock) {
     cout << "Closing client socket: " << client_sock << endl;
     close(client_sock);  // Close the client socket after handling
 }
-
 
 int main() {
     cout << "Starting server on port " << server_port << endl;
