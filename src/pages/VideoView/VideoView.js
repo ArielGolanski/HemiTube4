@@ -27,31 +27,41 @@ function VideoView({
       if (foundVideo) {
         setEditedTitle(foundVideo.title);
         setEditedDescription(foundVideo.description);
+        incrementViews(foundVideo._id, foundVideo.publisher.username); // Increment view count
       }
     };
     fetchVideo();
   }, [id, videoList]);
+
+  // Function to increment views on the server
+  const incrementViews = async (videoId, username) => {
+    try {
+      await fetch(`${serverAddress}/api/users/${username}/videos/${videoId}/incrementViews`, {
+        method: 'PUT',
+      });
+    } catch (error) {
+      console.error("Error incrementing views: ", error);
+    }
+  };
 
   if (!video) {
     return <NotFound />;
   }
 
   const handleDeleteVideo = () => {
-    if (video.publisher._id == localStorage.getItem("userId")) {
+    if (video.publisher._id === localStorage.getItem("userId")) {
       deleteVideo(video._id, video.publisher._id);
       navigate('/');
-    }
-    else {
-      alert("only publisher of the video can delete it!")
+    } else {
+      alert("Only the publisher of the video can delete it!");
     }
   };
 
   const handleEditVideo = () => {
-    if (video.publisher._id == localStorage.getItem("userId")) {
+    if (video.publisher._id === localStorage.getItem("userId")) {
       setIsEditing(true);
-    }
-    else {
-      alert("only the publisher of the video can edit the video details!")
+    } else {
+      alert("Only the publisher of the video can edit the video details!");
     }
   };
 
@@ -97,9 +107,8 @@ function VideoView({
             </Link>
           </p>
           <p>Views: {video.__v}</p>
-          <p>Uploade date: {new Date(video.uploadDate).toLocaleDateString()}</p>
+          <p>Upload date: {new Date(video.uploadDate).toLocaleDateString()}</p>
         </div>
-
 
         <div className="video-actions">
           <div className="action-buttons d-flex flex-wrap">

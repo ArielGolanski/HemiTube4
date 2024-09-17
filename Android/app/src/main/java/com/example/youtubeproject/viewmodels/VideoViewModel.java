@@ -154,6 +154,26 @@ public class VideoViewModel extends AndroidViewModel {
         return updatedComment;
     }
 
+    public LiveData<List<Video>> getRecommendedVideos(String username, String videoId) {
+        MutableLiveData<List<Video>> recommendedVideos = new MutableLiveData<>();
+        String authToken = "Bearer " + SessionManager.getInstance().getToken();  // Retrieve the JWT token from the session manager
+
+        videosRepository.getRecommendedVideos(username, videoId, authToken, new VideosRepository.OnRecommendedVideosCallback() {
+            @Override
+            public void onSuccess(List<Video> videos) {
+                Log.d("TAG", "Recommended videos fetched successfully");
+                recommendedVideos.setValue(videos);
+            }
+
+            @Override
+            public void onFailure() {
+                Log.e("TAG", "Failed to fetch recommended videos");
+                recommendedVideos.setValue(null);
+            }
+        });
+        return recommendedVideos;
+    }
+
 }
 
 

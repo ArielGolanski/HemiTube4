@@ -219,23 +219,132 @@ export async function addDeafaultVideos(flag) {
             file_data: "server/uploads/2796080-uhd_3840_2160_25fps.mp4",
             thumbnail_data: "server/uploads/imgdogs10.jpg",
             commentsArr: []
+        },
+        {
+            title: "24 hours in the supermarket challenge",
+            description: "vid 11",
+            publisher: id,
+            uploadDate: new Date(),
+            file_name: "13832799-sd_960_540_30fps.mp4",
+            thumbnail_name: "thumbnail7.jpg",
+            file_data: "server/uploads/13832799-sd_960_540_30fps.mp4",
+            thumbnail_data: "server/uploads/thumbnail7.jpg",
+            commentsArr: []
+        },
+        {
+            title: "24 hours in the library challenge",
+            description: "vid 12",
+            publisher: id,
+            uploadDate: new Date(),
+            file_name: "sample-4.mp4",
+            thumbnail_name: "thumbnail8.jpg",
+            file_data: "server/uploads/sample-4.mp4",
+            thumbnail_data: "server/uploads/thumbnail8.jpg",
+            commentsArr: []
+        },
+        {
+            title: "The goat",
+            description: "vid 13",
+            publisher: id,
+            uploadDate: new Date(),
+            file_name: "sample-4.mp4",
+            thumbnail_name: "thumbnail9.jpg",
+            file_data: "server/uploads/sample-4.mp4",
+            thumbnail_data: "server/uploads/thumbnail9.jpg",
+            commentsArr: []
+        },
+        {
+            title: "The most emotional video you will ever see",
+            description: "vid 14",
+            publisher: id,
+            uploadDate: new Date(),
+            file_name: "13832799-sd_960_540_30fps.mp4",
+            thumbnail_name: "thumbnail10.jpg",
+            file_data: "server/uploads/13832799-sd_960_540_30fps.mp4",
+            thumbnail_data: "server/uploads/thumbnail10.jpg",
+            commentsArr: []
+        },
+        {
+            title: "Pets",
+            description: "vid 15",
+            publisher: id,
+            uploadDate: new Date(),
+            file_name: "sample-4.mp4",
+            thumbnail_name: "thumbnail11.jpeg",
+            file_data: "server/uploads/sample-4.mp4",
+            thumbnail_data: "server/uploads/thumbnail11.jpeg",
+            commentsArr: []
+        },
+        {
+            title: "Another Dogs Video",
+            description: "vid 16",
+            publisher: id,
+            uploadDate: new Date(),
+            file_name: "2796083-uhd_3840_2160_25fps.mp4",
+            thumbnail_name: "thumbnail12.jpg",
+            file_data: "server/uploads/2796083-uhd_3840_2160_25fps.mp4",
+            thumbnail_data: "server/uploads/thumbnail12.jpg",
+            commentsArr: []
+        },
+        {
+            title: "Try Not to laugh",
+            description: "vid 17",
+            publisher: id,
+            uploadDate: new Date(),
+            file_name: "2796084-uhd_3840_2160_25fps.mp4",
+            thumbnail_name: "thumbnail13.jpg",
+            file_data: "server/uploads/2796084-uhd_3840_2160_25fps.mp4",
+            thumbnail_data: "server/uploads/thumbnail13.jpg",
+            commentsArr: []
+        },
+        {
+            title: "Pretty Cool Video",
+            description: "vid 18",
+            publisher: id,
+            uploadDate: new Date(),
+            file_name: "2796080-uhd_3840_2160_25fps.mp4",
+            thumbnail_name: "thumbnail8.jpg",
+            file_data: "server/uploads/2796080-uhd_3840_2160_25fps.mp4",
+            thumbnail_data: "server/uploads/thumbnail8.jpg",
+            commentsArr: []
+        },
+        {
+            title: "Deafualt Video",
+            description: "vid 19",
+            publisher: id,
+            uploadDate: new Date(),
+            file_name: "13832799-sd_960_540_30fps.mp4",
+            thumbnail_name: "thumbnail14.jpg",
+            file_data: "server/uploads/13832799-sd_960_540_30fps.mp4",
+            thumbnail_data: "server/uploads/thumbnail14.jpg",
+            commentsArr: []
+        },
+        {
+            title: "Drake new album",
+            description: "vid 20",
+            publisher: id,
+            uploadDate: new Date(),
+            file_name: "2796080-uhd_3840_2160_25fps.mp4",
+            thumbnail_name: "thumbnail15.jpg",
+            file_data: "server/uploads/2796080-uhd_3840_2160_25fps.mp4",
+            thumbnail_data: "server/uploads/thumbnail15.jpg",
+            commentsArr: []
         }
     ]
 
 
-    if(flag){
-    defaultVideos.forEach(async (videoData) => {
-        console.log("videoData:", videoData);  // Step 1: Verify videoData
-
-        try {
-            const newVideo = await addDefaultVideo(videoData);
-            console.log('default Video created successfully:', newVideo);
-        } catch (error) {
-            console.error('Error adding default video:', error);
+    if (flag) {
+        for (const videoData of defaultVideos) {
+            console.log("videoData:", videoData);  // Step 1: Verify videoData
+            try {
+                const newVideo = await addDefaultVideo(videoData);
+                console.log('default Video created successfully:', newVideo);
+            } catch (error) {
+                console.error('Error adding default video:', error);
+            }
         }
-    });
-    window.location.reload();
-}
+        window.location.reload();
+    }
 }
 
 
