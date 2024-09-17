@@ -255,6 +255,21 @@ const deleteAllCommentsByUsername = async (username) => {
     }
 };
 
+const incrementVideoViews = async (id) => {
+    try {
+        const video = await Video.findById(id);
+        if (!video) {
+            throw new Error('Video not found');
+        }
+        video.__v += 1; // Increment view count
+        await video.save();
+        return video.toObject();
+    } catch (error) {
+        console.error("Error incrementing video views: ", error);
+        throw new Error('Could not increment video views');
+    }
+};
+
 //////////////////////////new for the tcp server////////////////////////////
 
 const getVideosByIds = async (videoIds) => {
@@ -275,5 +290,5 @@ const getVideosByIds = async (videoIds) => {
 module.exports = {
     createVideo, getVideos, getVideoById, updateVideo, deleteVideo, getTopVids, deleteAllCommentsByUsername,
     addCommentToVideo, getVideosByUsername, getAllCommentsByVideoId, deleteVideosByUsername, deleteComment,
-    updateComment, getCommentFromVideo, getVideosByIds
+    updateComment, getCommentFromVideo, incrementVideoViews, getVideosByIds
 };

@@ -230,6 +230,20 @@ const deleteComment = async (req, res) => {
     }
 };
 
+
+const incrementViews = async (req, res) => {
+    try {
+        const videoId = req.params.pid;
+        const updatedVideo = await videoService.incrementVideoViews(videoId);
+        if (!updatedVideo) {
+            return res.status(404).json({ errors: ['Video not found'] });
+        }
+        res.status(200).json(updatedVideo);
+    } catch (error) {
+        res.status(500).json({ errors: [error.message] });
+    }
+};
+
 ///////////////////new for the tcp server////////////////
 const getRecommendedVideos = async (req, res) => {
     try {
@@ -271,4 +285,4 @@ const getRecommendedVideos = async (req, res) => {
 
 module.exports = { createVideo, getVideos, getVideo, updateVideo, deleteVideo,  getTopVids,
     addCommentToVideo, isLoggedIn , getVideosByUsername, getAllCommentsByVideoId, deleteVideosByUsername, 
-    deleteComment, updateComment, getCommentFromVideo, addDefaultVideo, getRecommendedVideos};
+    deleteComment, updateComment, getCommentFromVideo, addDefaultVideo, incrementViews, getRecommendedVideos};

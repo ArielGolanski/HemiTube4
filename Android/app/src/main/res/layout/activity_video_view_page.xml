@@ -152,8 +152,8 @@
         android:id="@+id/refreshLayout"
         style="@style/ScreenBackground"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/linearLayout"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toTopOf="@id/recommendedVideosLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -162,6 +162,28 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lstComments"
+            style="@style/ScreenBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/darker_gray" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/recommendedVideosLayout"
+        style="@style/ScreenBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/refreshLayout"
+        app:layout_constraintVertical_bias="1.0">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lstRecommendedVideos"
             style="@style/ScreenBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

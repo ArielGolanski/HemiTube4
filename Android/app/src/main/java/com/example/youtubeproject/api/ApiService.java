@@ -99,4 +99,11 @@ public interface ApiService {
             @Body ServerComment updatedComment,
             @Header("authorization") String authToken
     );
+
+    @GET("/api/users/{username}/videos/{videoId}/recommended")
+    Call<List<Video>> getRecommendedVideos(
+            @Path("username") String username,
+            @Path("videoId") String videoId,
+            @Header("authorization") String authToken
+    );
 }

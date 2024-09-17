@@ -24,10 +24,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.youtubeproject.MainActivity;
 import com.example.youtubeproject.R;
 import com.example.youtubeproject.adapters.CommentsListAdapter;
+import com.example.youtubeproject.adapters.VideosListAdapter;
 import com.example.youtubeproject.api.CommentRequest;
 import com.example.youtubeproject.entities.Comment;
 import com.example.youtubeproject.entities.SessionManager;
 import com.example.youtubeproject.entities.UserVideo;
+import com.example.youtubeproject.entities.Video;
 import com.example.youtubeproject.viewmodels.UserViewModel;
 import com.example.youtubeproject.viewmodels.VideoViewModel;
 
@@ -106,6 +108,50 @@ public class VideoViewPage extends AppCompatActivity {
                 }
             }
         });
+
+
+        RecyclerView lstVideos = findViewById(R.id.lstRecommendedVideos);
+        final VideosListAdapter adapter = new VideosListAdapter(this);
+        lstVideos.setAdapter(adapter);
+        lstVideos.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+        try {
+            videoViewModel = new ViewModelProvider(this).get(VideoViewModel.class);
+
+            if(sessionManager.isLogedIn()){
+                videoViewModel.getRecommendedVideos(sessionManager.getLoggedUser().getUsername(), data[0]).observe(this, new Observer<List<Video>>() {
+                    @Override
+                    public void onChanged(List<Video> videos) {
+                        if (videos != null) {
+                            Log.d("TAG", "Videos fetched successfully: " + videos.size());
+                            adapter.setVideos(videos);
+                        } else {
+                            Log.e("TAG", "Failed to fetch videos");
+                            Toast.makeText(VideoViewPage.this, "Failed to fetch videos", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+            else{
+                videoViewModel.getVideos().observe(this, new Observer<List<Video>>() {
+                    @Override
+                    public void onChanged(List<Video> videos) {
+                        if (videos != null) {
+                            Log.d("TAG", "Videos fetched successfully: " + videos.size());
+                            adapter.setVideos(videos);
+                        } else {
+                            Log.e("TAG", "Failed to fetch videos");
+                            Toast.makeText(VideoViewPage.this, "Failed to fetch videos", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+
+        } catch (Exception e) {
+            Log.e("TAG", "Exception in onCreate: ", e);
+        }
 
         ImageButton btnLike = findViewById(R.id.btnLike);
         btnLike.setOnClickListener(v -> {

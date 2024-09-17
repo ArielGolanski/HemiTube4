@@ -453,6 +453,35 @@ public class VideosRepository {
 
 
 
+    public void getRecommendedVideos(String username, String videoId, String authToken, OnRecommendedVideosCallback callback) {
+        Call<List<Video>> call = apiService.getRecommendedVideos(username, videoId, authToken);
+        call.enqueue(new Callback<List<Video>>() {
+            @Override
+            public void onResponse(Call<List<Video>> call, Response<List<Video>> response) {
+                if (response.isSuccessful()) {
+                    Log.d("TAG", "Fetched recommended videos successfully");
+                    callback.onSuccess(response.body());
+                } else {
+                    Log.e("TAG", "Failed to fetch recommended videos. Response code: " + response.code());
+                    callback.onFailure();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Video>> call, Throwable t) {
+                Log.e("TAG", "Error fetching recommended videos: " + t.getMessage());
+                callback.onFailure();
+            }
+        });
+    }
+
+    public interface OnRecommendedVideosCallback {
+        void onSuccess(List<Video> recommendedVideos);
+        void onFailure();
+    }
+
+
+
 
 }
 

@@ -14,6 +14,9 @@ router.route('/:id/videos/:pid')
     .get(videoController.getVideo) // Get details of a video by video ID (:pid)
     .put(videoController.updateVideo) // Update a video by video ID (:pid)
     .delete(videoController.deleteVideo); // Delete a video by video ID (:pid)
+
+router.put('/:id/videos/:pid/incrementViews', videoController.incrementViews); // Increment views by video ID
+
     //////// tcp stuff//////
 router.route('/:id/videos/:pid/recommended')
 .get(videoController.getRecommendedVideos); //gets the reccomended videos by video ID (:pid)
