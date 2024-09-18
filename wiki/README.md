@@ -85,7 +85,7 @@ here we entered to a dogs video and getting recommended to another dogs video as
 
 ![Image Alt](https://github.com/ArielGolanski/HemiTube4/blob/main/wiki/proof/Screenshot%202024-09-18%20140322.png)
 
-we also adding comment to a video to show that this functionallity is still working, for the rest of functionallities that was needed in part 2 and 3 of the project
+we also editing the video description to show that this functionallity is still working, for the rest of functionallities that was needed in part 2 and 3 of the project
 you can check the other 2 readme files that showing the rest of functionallities.
 <br/>
 
