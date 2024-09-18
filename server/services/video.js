@@ -270,6 +270,13 @@ const incrementVideoViews = async (id) => {
     }
 };
 
+const getAdditionalVideos = async (limit, excludeIds) => {
+    return await Video.find({ _id: { $nin: excludeIds } })
+                           .populate('publisher')  // Exclude already recommended videos
+                           .sort({ createdAt: -1 })  // You can change this to fetch based on popularity or random
+                           .limit(limit);
+};
+
 //////////////////////////new for the tcp server////////////////////////////
 
 const getVideosByIds = async (videoIds) => {
@@ -290,5 +297,5 @@ const getVideosByIds = async (videoIds) => {
 module.exports = {
     createVideo, getVideos, getVideoById, updateVideo, deleteVideo, getTopVids, deleteAllCommentsByUsername,
     addCommentToVideo, getVideosByUsername, getAllCommentsByVideoId, deleteVideosByUsername, deleteComment,
-    updateComment, getCommentFromVideo, incrementVideoViews, getVideosByIds
+    updateComment, getCommentFromVideo, incrementVideoViews, getVideosByIds, getAdditionalVideos
 };
