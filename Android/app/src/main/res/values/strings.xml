@@ -32,4 +32,5 @@
     <string name="save">save</string>
     <string name="edit_the_video_name">Edit the Video Name</string>
     <string name="edit_the_video_descreption">Edit the Video Descreption</string>
+    <string name="comments">Comments:</string>
 </resources>

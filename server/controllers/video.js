@@ -258,15 +258,17 @@ const getRecommendedVideos = async (req, res) => {
         // Fetch recommended video IDs from the TCP server
         const recommendedVideoIds = await tcpService.getRecommendationsFromTCP(userId, videoId);
 
-        // Check for recommendations and handle accordingly
-        if (recommendedVideoIds.length === 0) {
-            console.log('No recommendations available, fetching top 20 videos.');
-            const topVideos = await videoService.getTopVids();
-            return res.status(200).json(topVideos);
+        // Get full video details for the recommended videos
+        let recommendedVideos = await videoService.getVideosByIds(recommendedVideoIds);
+
+        // If the number of recommended videos is less than 20, fetch more videos
+        const videoCount = recommendedVideos.length;
+        if (videoCount < 20) {
+            const additionalVideos = await videoService.getAdditionalVideos(20 - videoCount, recommendedVideoIds);
+            // Combine the recommended videos with the additional ones, ensuring no duplicates
+            recommendedVideos = [...recommendedVideos, ...additionalVideos];
         }
 
-        // Get full video details from MongoDB
-        const recommendedVideos = await videoService.getVideosByIds(recommendedVideoIds);
         return res.status(200).json(recommendedVideos);
     } catch (error) {
         console.error('Error fetching recommended videos:', error);
