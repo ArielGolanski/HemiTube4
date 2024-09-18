@@ -31,7 +31,7 @@ In addiotion to the routes we created in the previous parts, we also added:
 
 GET /api/users/:id/videos/:pid/reccomeded Retrieve the recommended videos according to the video you just watched
 
-# about the servers and their connection
+# About the servers and their connection
 
 In our node.js server, we have a function that sends and recives information from and to the TCP server. 
 It sends a username and video id. 
@@ -42,4 +42,4 @@ In case tou are noe logged in, you will also get the top 20 videos.
 
 # The reccomendation algorithm
 The algorithm gets a username am dvideo id and returns the reccomended videos according to the video you watched (and according to the videos other peaople watched).
-For example, if a watched the videos that their id's are 1-5, and the user Israel watched 5-10, so if a new user will watch video number 5, it will reaive from the reccomendation algorithm the videos 1-10 (akk the videos that people who watched video 5 watched as well).
+For example, if a watched the videos that their id's are 1-5, and the user Israel watched 5-10, so if a new user will watch video number 5, it will reaive from the reccomendation algorithm the videos 1-10 (those are the videos that people who watched video 5 watched as well).
