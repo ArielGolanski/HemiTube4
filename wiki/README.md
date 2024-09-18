@@ -47,6 +47,10 @@ In case tou are noe logged in, you will also get the top 20 videos, in this case
 
 In the web, you can see the reccomended videos on the side of the video-view page (on the left side, just like in youtube), and on the android app you can see the reccomended videos under the comments (also in the video view page, bit on the bottom of it.
 
+- some more information about the TCP server:
+  As we said, the server works according to the TCP protocol.
+  The socket links between a requst and an other socket, the new socket handles the request and the main socket only handles the "linking" (it also enables multithreading).
+
 # The reccomendation algorithm
 The algorithm gets a username am dvideo id and returns the reccomended videos according to the video you watched (and according to the videos other peaople watched).
 
