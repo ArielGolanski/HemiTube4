@@ -34,12 +34,20 @@ GET /api/users/:id/videos/:pid/reccomeded Retrieve the recommended videos accord
 # About the servers and their connection
 
 In our node.js server, we have a function that sends and recives information from and to the TCP server. 
+
 It sends a username and video id. 
+
 If you are a registered and signed in user and you just watched a video, the function sends your username and the id of the video you just watched, to the TCP server. 
+
 The server gats this information and returns (according to the reccomendation algorithem) a list of reccomended videos. in case there are less than 20 reccomended videos recives from the TCP server, our node.js server will complate the list using the most viwed videos from the app (the first videos you will see are the reccomended ones, and the last will be the top videos on the app).
+
 in case you are the first person who watched the video and there are no reccomendations yet, you will get the top 20 videos.
-In case tou are noe logged in, you will also get the top 20 videos.
+
+In case tou are noe logged in, you will also get the top 20 videos, in this case, the videos you watch are not going to affect the algorithm because in case of an unregistered user, the TCP server is not getting any information.
+
+In the web, you can see the reccomended videos on the side of the video-view page (on the left side, just like in youtube), and on the android app you can see the reccomended videos under the comments (also in the video view page, bit on the bottom of it.
 
 # The reccomendation algorithm
 The algorithm gets a username am dvideo id and returns the reccomended videos according to the video you watched (and according to the videos other peaople watched).
+
 For example, if a watched the videos that their id's are 1-5, and the user Israel watched 5-10, so if a new user will watch video number 5, it will reaive from the reccomendation algorithm the videos 1-10 (those are the videos that people who watched video 5 watched as well).
