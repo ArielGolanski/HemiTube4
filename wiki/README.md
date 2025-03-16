@@ -1,7 +1,7 @@
 
 # HemiTube4
 our self-made logo: as you can see, this is hemi, holding the YouTube sign
-![HemitubeLogoHorizontal](https://github.com/ArielGolanski/HemiTube2/assets/170665000/815d8c61-4e42-4ad7-9559-4309ca1bc596)
+![Image Alt](https://github.com/ArielGolanski/HemiTube4/blob/main/wiki/HemitubeLogoHorizontal.jpeg)
 
 
 # Getting started:
